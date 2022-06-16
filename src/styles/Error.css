@@ -1,0 +1,45 @@
+.container-error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    margin: 5rem auto;
+
+}
+
+.back-to-home {
+    margin-top: 2rem;
+    padding: 0.5rem 0.8rem;
+    text-decoration: none;
+    background-color: var(--bg-color);
+    color: white;
+    border-radius: 10px;
+    font-family: "Lato";
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 400ms ease-out;
+}
+
+.back-to-home svg {
+    margin-bottom: 2.5px;
+    margin-right: 6px;
+    width: 1.3em;
+    height: 1.3em;
+
+}
+
+
+.back-to-home:hover {
+    color: var(--bg-color);
+    background-color: White;
+    border: 1px solid var(--bg-color);
+    font-weight: 700;
+}
+
+
+@media only screen and (max-width:601px) {
+    .image-error img {
+        width: 100%;
+    }
+}

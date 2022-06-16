@@ -1,0 +1,92 @@
+.Hospital-card {
+    margin: 1rem;
+    padding: 0.5rem;
+    background-color: #EFF4F7;
+    border-radius: 8px;
+    text-align: right;
+    cursor: pointer;
+    transition: transform 200ms ease;
+}
+
+
+.Hospital-card:hover {
+    transform: scale(1.04);
+}
+
+.Hospital-card img {
+    border-radius: 2%;
+}
+
+.Hospital-card>p {
+    margin: 0;
+    font-family: "Cambria", "Cochin", Georgia, Times, 'Times New Roman', serif;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    font-variant: small-caps;
+    font-size: 1rem;
+}
+
+
+.card-details p {
+    margin: 0;
+    font-weight: 600;
+    font-family: "Cambria", "Cochin", Georgia, Times, 'Times New Roman', serif;
+    letter-spacing: 0.8px;
+    color: rgba(0, 0, 0, 0.5);
+
+}
+
+.card-loaction svg,
+.card-Number svg,
+.Hospital-name svg {
+    margin-right: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.card-loaction svg path {
+    fill: var(--bg-glass);
+    stroke: var(--bg-red);
+}
+
+.Hospital-name svg {
+    fill: var(--bg-red);
+}
+
+@media only screen and (min-width:426px) and (max-width:768px) {
+    .Hospital-card {
+        margin: 0.5rem;
+    }
+
+    .Hospital-card>img {
+        width: 40vw;
+    }
+
+    .Hospital-card>p,
+    .card-details p {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (max-width:426px) {
+    .Hospital-card {
+        margin: 0.3rem;
+    }
+
+    .Hospital-card>img {
+        width: 90vw;
+    }
+
+    .Hospital-card>p,
+    .card-details p {
+        font-size: 0.8rem;
+    }
+
+    .card-loaction svg,
+    .card-Number svg,
+    .Hospital-name svg {
+        width: 1.3em;
+        height: 1.3em
+    }
+
+
+}

@@ -1,0 +1,75 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60vw;
+    margin: 5.5rem auto;
+    background-color: aliceblue;
+    box-shadow: 0 0 2.5px 0;
+    border-radius: 5px;
+
+}
+
+main .user-greeting {
+    width: 70%;
+    margin: 14px 0 -5px 0;
+
+}
+
+main :is(.user-name, .user-age, .user-gender, .user-email) {
+    display: flex;
+    margin: 7px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.user-email :first-child {
+    margin-left: 63px;
+}
+
+.user-gender :first-child {
+    margin-left: -52px;
+
+}
+
+main .user-out {
+    width: 70%;
+
+
+}
+
+main button {
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    color: white;
+    transition: background-color 200ms ease;
+}
+
+
+
+main button:hover {
+
+    background-color: #0092b7d2;
+}
+
+:is(.user-name, .user-age, .user-gender, .user-email) :last-child {
+    margin-left: 10px;
+}
+
+
+@media only screen and (max-width:601px) {
+    main {
+        width: 90vw;
+    }
+
+    .user-email :first-child {
+        margin-left: 0;
+    }
+}

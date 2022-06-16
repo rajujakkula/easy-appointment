@@ -1,0 +1,170 @@
+div.container {
+    margin-top: 5.5rem;
+    margin-bottom: 2rem;
+    /* background-color: aliceblue; */
+}
+
+.content,
+.content .horizontal-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.content {
+    flex-direction: column;
+    align-content: center;
+    /* margin-top: 2rem; */
+    /* padding-top: 5rem; */
+    padding: 0.9em 0 2rem 0;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 5px;
+}
+
+.content>svg {
+    width: 2.5em;
+    height: 2.5em;
+    margin-bottom: 10px;
+    fill: var(--bg-color);
+    border-radius: 100%;
+
+}
+
+
+.content>p {
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.link {
+    text-decoration: none;
+    margin-left: 5px;
+    margin-top: 5px;
+    transition: all 100ms ease;
+}
+
+.link:hover {
+    font-size: 0.85rem;
+    font-weight: 700;
+
+
+
+}
+
+.span-or {
+    font-style: italic;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif
+}
+
+.horizontal-line hr {
+    width: 35vw;
+    flex-shrink: 2;
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
+
+}
+
+.content .google-signup {
+    text-decoration: none;
+    text-align: center;
+    color: aliceblue;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    width: 45vw;
+    min-width: 185px;
+    max-width: 420px;
+    padding: 0.5rem;
+    transition: all 200ms ease;
+
+}
+
+/* ---------------   INPUT FIELD  START ----------------------- */
+.user-details {
+    position: relative;
+}
+
+.user-details svg,
+.user-details span {
+    position: absolute;
+    top: 22px;
+    width: 1.4em;
+    height: 1.4em;
+    left: 10px
+}
+
+.user-details span {
+    top: 14px;
+    font-size: 1.5rem;
+    font-family: "Lato";
+    font-weight: 700;
+}
+
+.Input-field {
+    width: 90vw;
+    max-width: max(500px, 50vw);
+    height: 2.5rem;
+    max-height: max-content;
+    margin: 0.8rem auto;
+    padding: 0.5rem;
+    padding-left: 2.4rem;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    /* box-shadow: 2px 2px 5px 1px; */
+    box-shadow: 0px 0px 5px 0px;
+
+}
+
+
+/* ---------------   INPUT FIELD END  ----------------------- */
+
+/* ------------- BUTTON SUBMIT START------------------------------- */
+
+/* background-color:#42cbf5; 
+    background-color: #284E57;
+    background-color: #19868F;
+    background-color: #005f89;
+    background-color: #65b2c5; */
+
+.submit-button {
+    width: 70vw;
+    max-width: 8rem;
+    background-color: var(--bg-color);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 6px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    color: azure;
+    transition: all 200ms ease;
+}
+
+.submit-button:hover,
+.google-signup:hover {
+    background-color: #ffffff;
+    color: var(--bg-color);
+    border: 1px solid var(--bg-color);
+    font-weight: 700;
+}
+
+/* ------------------- BUTTON SUBMIT END ---------------------- */
+@media only screen and (max-width:600px) {
+    .content {
+        box-shadow: none;
+    }
+
+    .user-details g {
+        fill: black;
+
+    }
+
+
+}
