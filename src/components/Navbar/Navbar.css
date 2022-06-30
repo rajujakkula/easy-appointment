@@ -89,6 +89,9 @@ li a:hover {
     color: aliceblue;
 }
 
+.nav-link-a {
+    display: none;
+}
 
 @media only screen and (min-width:601px) and (max-width:777px) {
     .nav-link li {

@@ -3,24 +3,42 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import { FcMenu } from "react-icons/fc";
 import { IoMdClose } from "react-icons/io";
-import NavLinksComponent from "./NavLinksComponent";
 import "../Navbar/Navbar.css";
+import { CgLogIn } from "react-icons/cg";
+import { FaHome } from "react-icons/fa";
+import { GoSignIn } from "react-icons/go";
+import { MdAccountCircle } from "react-icons/md";
+import { auth } from "../../firebase/firebase";
 
-const Navbar = () => {
+const Navbar = ({ user, setUser }) => {
   const [navToggle, setNavToggle] = useState(false);
 
   useEffect(() => {
     //
-    const screenSize = () => {
+    let screenSize = () => {
       window.innerWidth > 600 && setNavToggle(false);
     };
 
     window.addEventListener("resize", screenSize);
 
     if (navToggle) {
+      if (
+        document.getElementById("mon")?.classList.contains("nav-link-a") ||
+        document.getElementById("mon")?.classList.contains("hidden-desktop")
+      ) {
+        document.getElementById("mon").classList.add("Navbar-mobile");
+        document
+          .getElementById("mon")
+          .classList.remove("nav-link-a", "hidden-desktop");
+      }
       document.body.classList.add("activeNavbar");
       document.getElementById("root").classList.add("disabledDiv");
     } else {
+      if (document.getElementById("mon")?.classList.contains("Navbar-mobile")) {
+        document.getElementById("mon").classList.remove("Navbar-mobile");
+        document.getElementById("mon").classList.add("hidden-desktop");
+      }
+
       document.body.classList.remove("activeNavbar");
       document.getElementById("root").classList.remove("disabledDiv");
     }
@@ -44,7 +62,45 @@ const Navbar = () => {
             Easy Appointments
           </Link>
         </h4>
-        <NavLinksComponent />
+        {window.innerWidth > 601 && (
+          <ul className="nav-link">
+            <li className="list-items">
+              <Link to="/" onClick={() => setNavToggle((prev) => !prev)}>
+                <FaHome /> Home
+              </Link>
+            </li>
+
+            {!auth.currentUser && (
+              <li className="list-items">
+                <Link to="/login" onClick={() => setNavToggle((prev) => !prev)}>
+                  <CgLogIn /> Login
+                </Link>
+              </li>
+            )}
+
+            {!auth.currentUser && (
+              <li className="list-items">
+                <Link
+                  to="/signup"
+                  onClick={() => setNavToggle((prev) => !prev)}
+                >
+                  <GoSignIn /> Signup
+                </Link>
+              </li>
+            )}
+
+            {auth.currentUser && (
+              <li className="list-items">
+                <Link
+                  to="/profile"
+                  onClick={() => setNavToggle((prev) => !prev)}
+                >
+                  <MdAccountCircle /> Profile
+                </Link>
+              </li>
+            )}
+          </ul>
+        )}
         <div
           className="Menu-icon"
           onClick={() => {
@@ -60,11 +116,45 @@ const Navbar = () => {
       </nav>
 
       <div className={navToggle ? "background-open" : ""} onClick={handleMenu}>
-        <NavLinksComponent
-          navToggle={navToggle}
-          dynamicStyle="hidden-desktop"
-          setNavToggle={setNavToggle}
-        />
+        {window.innerWidth < 601 && (
+          <ul className="nav-link-a" id="mon">
+            <li className="list-items">
+              <Link to="/" onClick={() => setNavToggle((prev) => !prev)}>
+                <FaHome /> Home
+              </Link>
+            </li>
+
+            {!auth.currentUser && (
+              <li className="list-items">
+                <Link to="/login" onClick={() => setNavToggle((prev) => !prev)}>
+                  <CgLogIn /> Login
+                </Link>
+              </li>
+            )}
+
+            {!auth.currentUser && (
+              <li className="list-items">
+                <Link
+                  to="/signup"
+                  onClick={() => setNavToggle((prev) => !prev)}
+                >
+                  <GoSignIn /> Signup
+                </Link>
+              </li>
+            )}
+
+            {auth.currentUser && (
+              <li className="list-items">
+                <Link
+                  to="/profile"
+                  onClick={() => setNavToggle((prev) => !prev)}
+                >
+                  <MdAccountCircle /> Profile
+                </Link>
+              </li>
+            )}
+          </ul>
+        )}
       </div>
     </>,
     document.getElementById("portal-root")

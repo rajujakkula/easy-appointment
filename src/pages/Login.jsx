@@ -1,12 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import "../styles/Login.css";
+import { auth, provider } from "../firebase/firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import Navbar from "../components/Navbar/Navbar";
 
 export const Login = () => {
   //
+  const navigate = useNavigate();
+
   const [input, setInput] = React.useState({
     email: "",
     password: "",
@@ -20,41 +25,40 @@ export const Login = () => {
     setInput({ ...input, [name]: value });
   };
 
-  const postData = async (e) => {
+  const logIn = async (e) => {
     e.preventDefault();
-    const { email, password } = input;
-    const res = await fetch(
-      "https://easy-appointment-4794f-default-rtdb.firebaseio.com/userLoginform.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    );
+    try {
+      await signInWithEmailAndPassword(auth, input.email, input.password).then(
+        (userCrendential) => {
+          if (userCrendential) {
+            navigate("/");
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-    if (res) {
-      setInput({
-        email: "",
-        password: "",
-      });
+  const signInWithGoogle = () => {
+    try {
+      signInWithPopup(auth, provider);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
     <>
+      <Navbar />
       <div className="container">
-        <form className="content" method="POST" onSubmit={postData}>
+        <form className="content" method="POST" onSubmit={logIn}>
           <h3>LogIn</h3>
           <div className="user-details">
             <AiOutlineMail />
             <input
               type="email"
-              placeholder="Email"
+              placeholder="email"
               name="email"
               value={input.email}
               className="Input-field"
@@ -84,10 +88,14 @@ export const Login = () => {
             <span className="span-or">Or</span>
             <hr />
           </div>
-          <p>Sign Up With Google</p>
-          <NavLink to="google.com" className="google-signup">
+          <p>Sign In With Google</p>
+          <button
+            className="google-signup"
+            onClick={signInWithGoogle}
+            type="button"
+          >
             Google
-          </NavLink>
+          </button>
         </form>
       </div>
     </>

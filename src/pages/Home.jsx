@@ -1,15 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import HospitalsDisplay from "../components/Hospitals/HospitalsDisplay";
 import { FiSearch } from "react-icons/fi";
 import "../styles/Home.css";
-const Home = () => {
-  const [location, setLocation] = useState("");
+import { db } from "../firebase/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import Navbar from "../components/Navbar/Navbar";
+const Home = ({ user }) => {
+  const [loc, setLoc] = useState("");
   const [special, setSpecial] = useState(false);
+  const [details, setDetails] = useState([]);
 
-  const locationHandle = (e) => {
-    setLocation(e.target.value);
-    console.log(location);
-  };
+  useEffect(() => {
+    const locations = collection(db, "hyderabad");
+    const fetch = async () => {
+      const snapshot = await getDocs(locations);
+      snapshot.forEach((doc) => {
+        setDetails(doc.data());
+        // console.log(doc.data());
+      });
+    };
+
+    fetch();
+
+    return () => {
+      fetch();
+    };
+  }, []);
 
   useEffect(() => {
     const closePop = (e) => {
@@ -21,10 +37,11 @@ const Home = () => {
     return () => {
       document.body.removeEventListener("click", closePop);
     };
-  });
+  }, [special]);
 
   return (
     <>
+      <Navbar user={user} />
       <div className="container-home">
         <div className="location-search">
           <div className="search-input">
@@ -32,8 +49,11 @@ const Home = () => {
               type="search"
               name="location"
               id=""
+              value={loc}
               placeholder="Search Location . . . "
-              onChange={locationHandle}
+              onChange={(e) => {
+                setLoc(e.target.value);
+              }}
             />
             <FiSearch />
           </div>
@@ -63,8 +83,9 @@ const Home = () => {
           )}
         </div>
       </div>
+
       <h4 className="hos-at-loc">
-        Hospitals At Location <span>Name</span>
+        Hospitals At Location <span>{details?.location}</span>
       </h4>
 
       <div className="container-Hospitals">
@@ -77,4 +98,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default memo(Home);

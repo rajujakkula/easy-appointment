@@ -1,24 +1,24 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-
 // Import the functions you need from the SDKs you need
-
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+//
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC5Oc8fbuyf4w_8adrXBrfF8HUhCWHqPJI",
-  authDomain: "easy-appointments-9b69e.firebaseapp.com",
-  databaseURL: "https://easy-appointments-9b69e-default-rtdb.firebaseio.com",
-  projectId: "easy-appointments-9b69e",
-  storageBucket: "easy-appointments-9b69e.appspot.com",
-  serviceAccount: "serviceAccountKey.json", // DUMMY LINK
-  messagingSenderId: "986126631929",
-  appId: "1:986126631929:web:2918bd84fc41d3309bf328",
+  apiKey: "AIzaSyDqgTriXI8eLtrBSOJWA5pgKGdVjeb6uBc",
+  authDomain: "easy-appointment-19b4b.firebaseapp.com",
+  projectId: "easy-appointment-19b4b",
+  storageBucket: "easy-appointment-19b4b.appspot.com",
+  messagingSenderId: "1075103439080",
+  appId: "1:1075103439080:web:55d85e192bdfb8050ad15d",
 };
-// Initialize Firebase and Firestore
-const app = initializeApp(firebaseConfig);
-const dp = getFirestore(app);
 
-export { dp };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const auth = getAuth(app);
+export const provider = new GoogleAuthProvider();
+// export const db = getFirestore(app);
