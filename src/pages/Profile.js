@@ -4,6 +4,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
+import BackNavigation from "../components/BackNavigation";
 const Profile = () => {
   const navigate = useNavigate();
   const logOut = async () => {
@@ -23,7 +24,9 @@ const Profile = () => {
     <>
       <Navbar />
       <main>
-        <p className="user-greeting">Hi ,{auth.currentUser?.displayName} 👋</p>
+        <p className="user-greeting">
+          Hi ,{auth.currentUser?.displayName} <span>👋</span>
+        </p>
         <hr width="70%" />
         <div className="user-name">
           <span>Name :</span>
@@ -44,6 +47,7 @@ const Profile = () => {
           </button>
         </div>
       </main>
+      <BackNavigation />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import { VscAccount } from "react-icons/vsc";
 import { AiOutlineMail } from "react-icons/ai";
@@ -14,9 +14,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import Navbar from "../components/Navbar/Navbar";
+import BackNavigation from "../components/BackNavigation";
 const Signup = () => {
   const [input, setInput] = React.useState({});
-
+  const navigate = useNavigate();
   const registration = async (e) => {
     e.preventDefault();
     try {
@@ -35,6 +36,7 @@ const Signup = () => {
       displayName: input.name,
     })
       .then(function () {
+        navigate("/");
         const displayName = auth.currentUser.displayName;
         console.log("display=>:" + displayName);
       })
@@ -44,7 +46,9 @@ const Signup = () => {
   };
 
   const signInWithGoogle = () => {
-    signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider).then(() => {
+      navigate("/");
+    });
   };
 
   const onChangeHandler = ({ target: { name, value } }) => {
@@ -119,6 +123,7 @@ const Signup = () => {
           </button>
         </form>
       </div>
+      <BackNavigation />
     </>
   );
 };

@@ -7,6 +7,7 @@ import "../styles/Login.css";
 import { auth, provider } from "../firebase/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import Navbar from "../components/Navbar/Navbar";
+import BackNavigation from "../components/BackNavigation";
 
 export const Login = () => {
   //
@@ -42,7 +43,9 @@ export const Login = () => {
 
   const signInWithGoogle = () => {
     try {
-      signInWithPopup(auth, provider);
+      signInWithPopup(auth, provider).then(() => {
+        navigate("/");
+      });
     } catch (error) {
       console.log(error);
     }
@@ -98,6 +101,7 @@ export const Login = () => {
           </button>
         </form>
       </div>
+      <BackNavigation />
     </>
   );
 };

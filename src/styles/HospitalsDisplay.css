@@ -8,13 +8,18 @@
     transition: transform 200ms ease;
 }
 
-
-.Hospital-card:hover {
-    transform: scale(1.04);
+@media screen and (orientation:landscape) {
+    .Hospital-card:hover {
+        transform: scale(1.02);
+    }
 }
 
 .Hospital-card img {
+    width: 25vw;
+    height: 225px;
+    margin-bottom: 0.5rem;
     border-radius: 2%;
+    object-fit: fill;
 }
 
 .Hospital-card>p {

@@ -91,6 +91,7 @@ svg.active {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     animation: fade-in 1s linear;
+
 }
 
 
@@ -144,8 +145,11 @@ svg.active {
     box-shadow: 0.2px 0px 0px;
 }
 
-.doctor-profile:hover {
-    transform: scale(1.015);
+@media screen and (orientation : landscape) {
+    .doctor-profile:hover {
+        transform: scale(1.015);
+    }
+
 }
 
 .doctor-pic .pic {

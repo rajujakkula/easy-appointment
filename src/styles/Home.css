@@ -114,13 +114,16 @@ li {
     letter-spacing: 1.3px;
 }
 
-.hos-at-loc span {
+.hos-at-loc>p {
     font-style: oblique;
     font-weight: 700;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
     color: brown;
     letter-spacing: 1px;
-    line-height: 0;
+    line-height: 2;
+    text-transform: uppercase;
+    margin-left: 1.5px;
+    text-align: center;
 }
 
 

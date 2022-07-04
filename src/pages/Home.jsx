@@ -1,27 +1,32 @@
 import React, { useState, useEffect, memo } from "react";
 import HospitalsDisplay from "../components/Hospitals/HospitalsDisplay";
 import { FiSearch } from "react-icons/fi";
-import "../styles/Home.css";
+import Navbar from "../components/Navbar/Navbar";
+import BackNavigation from "../components/BackNavigation";
 import { db } from "../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import Navbar from "../components/Navbar/Navbar";
-const Home = ({ user }) => {
-  const [loc, setLoc] = useState("");
+import "../styles/Home.css";
+//
+const locations = collection(db, "locations");
+var uniquehos = [];
+const Home = () => {
+  const [loc, setLoc] = useState("hyderabad");
   const [special, setSpecial] = useState(false);
-  const [details, setDetails] = useState([]);
+  const [search, setSearch] = useState([]);
 
   useEffect(() => {
-    const locations = collection(db, "hyderabad");
     const fetch = async () => {
       const snapshot = await getDocs(locations);
-      snapshot.forEach((doc) => {
-        setDetails(doc.data());
-        // console.log(doc.data());
+      const docs = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        return data;
       });
+      setSearch(docs);
+      uniquehos = docs;
     };
 
     fetch();
-
     return () => {
       fetch();
     };
@@ -38,26 +43,23 @@ const Home = ({ user }) => {
       document.body.removeEventListener("click", closePop);
     };
   }, [special]);
-
   return (
     <>
-      <Navbar user={user} />
+      <Navbar />
       <div className="container-home">
         <div className="location-search">
           <div className="search-input">
             <input
-              type="search"
+              type="text"
               name="location"
-              id=""
-              value={loc}
-              placeholder="Search Location . . . "
+              placeholder="Search Location or Hospital ... "
               onChange={(e) => {
                 setLoc(e.target.value);
               }}
             />
             <FiSearch />
           </div>
-          <p
+          {/* <p
             className="location-filter"
             name="specialization"
             onClick={(e) => {
@@ -67,35 +69,41 @@ const Home = ({ user }) => {
           ></p>
           {special && (
             <ul>
-              <li>rwer</li>
-              <li>ybhjr</li>
-              <li>jn</li>
-              <li>rwer</li>
-              <li>rwer</li>
-              <li>ybhjr</li>
-              <li>jn</li>
-              <li>rwer</li>
-              <li>rwer</li>
-              <li>ybhjr</li>
-              <li>jn</li>
-              <li>rwer</li>
+              {search?.specialize.map((specialize) => (
+                <li key={Math.random() * 100}>{specialize}</li>
+              ))}
             </ul>
-          )}
+          )} */}
         </div>
       </div>
 
-      <h4 className="hos-at-loc">
-        Hospitals At Location <span>{details?.location}</span>
-      </h4>
-
+      {/* {loc && (
+        <h4 className="hos-at-loc">
+          Hospitals At Location
+          <p className="ms-2 text-capitalize">{loc}</p>
+        </h4>
+      )} */}
       <div className="container-Hospitals">
-        <HospitalsDisplay />
-        <HospitalsDisplay />
-        <HospitalsDisplay /> <HospitalsDisplay /> <HospitalsDisplay />
-        <HospitalsDisplay />
+        {search
+          .filter((doc) => {
+            if (doc.location.toLowerCase() === loc.toLowerCase()) {
+              return doc;
+            } else if (doc.hosname.toLowerCase() === loc.toLowerCase()) {
+              return doc;
+            }
+            return null;
+          })
+          .map((res) => (
+            <HospitalsDisplay
+              details={res}
+              key={search.id ? search.id : Math.random() * 100}
+            />
+          ))}
       </div>
+      <BackNavigation />
     </>
   );
 };
 
 export default memo(Home);
+export { uniquehos };

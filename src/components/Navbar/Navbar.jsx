@@ -10,7 +10,7 @@ import { GoSignIn } from "react-icons/go";
 import { MdAccountCircle } from "react-icons/md";
 import { auth } from "../../firebase/firebase";
 
-const Navbar = ({ user, setUser }) => {
+const Navbar = () => {
   const [navToggle, setNavToggle] = useState(false);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ const Navbar = ({ user, setUser }) => {
                   to="/profile"
                   onClick={() => setNavToggle((prev) => !prev)}
                 >
-                  <MdAccountCircle /> Profile
+                  <MdAccountCircle /> {auth?.currentUser.displayName}
                 </Link>
               </li>
             )}
@@ -149,7 +149,7 @@ const Navbar = ({ user, setUser }) => {
                   to="/profile"
                   onClick={() => setNavToggle((prev) => !prev)}
                 >
-                  <MdAccountCircle /> Profile
+                  <MdAccountCircle /> {auth?.currentUser.displayName}
                 </Link>
               </li>
             )}

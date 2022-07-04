@@ -1,37 +1,60 @@
-import React from "react";
+import React, { useState, memo } from "react";
 import { GrLocation } from "react-icons/gr";
 import { BsTelephoneInbound } from "react-icons/bs";
 import { MdOutlineLocalHospital } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import "../../styles/HospitalsDisplay.css";
-import { useNavigate } from "react-router-dom";
+import { storage } from "../../firebase/firebase";
+import { getDownloadURL, ref } from "firebase/storage";
 
-const HospitalsDisplay = () => {
-  const navigate = useNavigate();
+const HospitalsDisplay = ({ details }) => {
+  const { hosimage, hosname, location, hosnum } = details;
+  const [url, setUrl] = useState();
+  useEffect(() => {
+    const func = async () => {
+      if (hosimage !== undefined) {
+        const reference = ref(storage, `hospitals/${hosimage}`);
+        await getDownloadURL(reference)
+          .then((urlImg) => {
+            setUrl(urlImg);
+          })
+          .catch((error) => console.log(error.message));
+      }
+    };
+    if (url === undefined) {
+      func();
+    }
+    return () => {
+      func();
+    };
+  }, [hosimage, url]);
+
   return (
     <>
-      <div className="Hospital-card" onClick={() => navigate("hos")}>
-        <img
-          src="https://tse3.mm.bing.net/th?id=OIP.YrcACMul16e389YaGH_5OgHaE3&pid=Api&P=0&w=309&h=203"
-          alt=""
-          loading="lazy"
-        />
-        <p className="Hospital-name">
-          <MdOutlineLocalHospital />
-          HospitalName
-        </p>
-        <div className="card-details">
-          <p className="card-loaction">
-            <GrLocation />
-            Location
-          </p>
-          <p className="card-Number">
-            <BsTelephoneInbound />
-            Number
-          </p>
-        </div>
-      </div>
+      {url !== undefined && (
+        <Link to={`/${details.id}`} className="text-decoration-none text-muted">
+          <div className="Hospital-card">
+            <img src={url} alt={hosname} loading="lazy" />
+            <p className="Hospital-name">
+              <MdOutlineLocalHospital />
+              {hosname}
+            </p>
+            <div className="card-details">
+              <p className="card-loaction">
+                <GrLocation />
+                {location}
+              </p>
+              <p className="card-Number">
+                <BsTelephoneInbound />
+                {hosnum}
+              </p>
+            </div>
+          </div>
+        </Link>
+      )}
     </>
   );
 };
 
-export default HospitalsDisplay;
+export default memo(HospitalsDisplay);
