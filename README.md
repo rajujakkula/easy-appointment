@@ -1,8 +1,7 @@
 # This is a web application for finding Hospitals and Booking an appointment
 
-this application is built on new technology using react.js
+this application is built on  technology using react.js , firebase
 
-To start this application in localhost:-
-   > install the react app using  node package manager " npx ";
-   > Replace original files with the downloaded files.
-   > Now type "npm start" in your vscode terminal. 
+To run the application
+   > clone the application into the local repository and run it using the node package manager 
+ 
